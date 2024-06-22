@@ -5,10 +5,10 @@ class Task(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
     status = models.CharField(max_length=20, choices=[
-        ('In Progress', 'In Progress'),
-        ('Completed', 'Completed'),
-        ('Overdue', 'Overdue'),
-    ])
+        ('in_progress', 'In Progress'),
+        ('completed', 'Completed'),
+        ('overdue', 'Overdue'),
+    ], default='in_progress')
     priority = models.CharField(max_length=20, choices=[
         ('Low', 'Low'),
         ('Medium', 'Medium'),

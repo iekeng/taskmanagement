@@ -1,0 +1,158 @@
+
+{% extends "_base.html" %}
+ 
+{% block content %}
+
+    <div class="flex flex-row w-full">
+        <aside class="text-sm flex flex-col sticky h-screen top-0 w-1/6 bg-slate-100 pl-2">
+            {% include 'sidebar.html' %}
+        </aside> 
+        <main class="flex flex-col w-5/6 px-4">            
+            <div class="">
+                <div class="mx-auto flex flex-row justify-between mb-8">
+                    <form class="max-w-md">   
+                        <div class="relative">
+                            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                                &#x1F50D
+                            </div>
+                            <input type="search" id="default-search" class="block w-full h-2 p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-md bg-gray-50 focus:ring-blue-500" placeholder="Search tasks" required />
+                        </div>
+                    </form>
+                    <spam class="w-auto space-x-2 flex flex-row">
+                        <i class="fa fa-comments-o" aria-hidden="true"></i>
+                        <i class="fa fa-bell-o" aria-hidden="true"></i>
+                        <img class="w-5 h-5 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 1">
+                    </spam>
+                </div>
+            </div>
+
+            <div class="flex flex-row justify-between">
+                <div class="w-1/2 flex flex-row space-x-2">
+                    <button class="rounded-md py-1 px-4 w-auto h-auto text-xs border border-slate-400">
+                        <i class="fa fa-th pr-2" aria-hidden="true"></i> Preview
+                    </button>
+                    <button class="rounded-md py-1 px-4 w-auto h-auto text-xs border border-slate-400">
+                        <i class="fa fa-sort-alpha-asc pr-2" aria-hidden="true"></i>Sort
+                    </button>
+                    <button class="rounded-md py-1 px-4 w-auto h-auto text-xs  border border-slate-400">
+                        <i class="fa fa-sliders pr-2" aria-hidden="true"></i>Filter
+                    </button>
+                </div>
+                <div class="flex flex-row space-x-2">
+                    <div class="flex -space-x-2">
+                        <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 1">
+                        <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 2">
+                        <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 3">
+                        <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 4">
+                        <img class="w-6 h-6 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 5">
+                    </div>
+                    <button class="rounded-md py-1 px-4 w-auto h-8 text-xs text-white bg-indigo-500 border border-slate-400">
+                        + Add task
+                    </button>
+                </div>
+            </div>
+            
+            <div class="text-xs flex flex-row w-full mt-8 gap-2">
+                {% include 'in_progress_tasks.html' %}
+                {% include 'completed_tasks.html' %}
+                {% include 'overdue_tasks.html' %}
+                
+                {% comment %} <div class="sm:w-1/3 flex flex-auto flex-col">
+                    <h2 class="text-lg font-semibold mb-4">Completed</h2>
+                    <div div="in-progress" class="draggable flex items-center justify-center min-h-[200px] bg-gray-100">
+                        <div class="w-full h-full rounded bg-white relative">
+                            <button class="absolute top-0 right-0 p-4">&#8942</button>
+                            {% if completed_tasks%}
+                                {% for task in completed_tasks %}
+                                    <div class="px-6 py-4">
+                                        <h3 class="font-bold text-xl mb-2">{{ task.title }}</h3>
+                                        <p class="text-gray-700 text-base">{{task.description}}</p>
+                                    </div>
+                                    <div class="px-6 pt-4 pb-2 flex items-center justify-between">
+                                        <div class="flex items-center">
+                                                <span class="text-gray-700 text-sm">0/3</span>
+                                        </div>
+                                    <div class="flex -space-x-2">
+                                        <img class="w-8 h-8 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 1">
+                                        <img class="w-8 h-8 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 2">
+                                        <img class="w-8 h-8 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 3">
+                                    </div>
+                                {% endfor%}
+                            {% else %}
+                                <div class="px-6 py-4">
+                                    <h3 class="font-bold text-xl mb-2">No Task Available</h3>
+                                    <p class="text-gray-700 text-base">Tasks are not currently available in this card. Add tasks or check again later.</p>
+                                </div>
+                                <div class="px-6 pt-4 pb-2 flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <span class="text-gray-700 text-sm">0/3</span>
+                                    </div>
+                                <div class="flex -space-x-2">
+                                    <img class="w-8 h-8 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 1">
+                                    <img class="w-8 h-8 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 2">
+                                    <img class="w-8 h-8 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 3">
+                            </div>
+                            {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="sm:w-1/3 flex flex-auto flex-col">
+                    <h2 class="text-lg font-semibold mb-4">Overdue</h2>
+                    {% if overdue_tasks%}
+                        {% for task in overdue_tasks %}
+                            <div div="in-progress" class="draggable flex items-center justify-center min-h-[200px] bg-gray-100">
+                                <div class="w-full h-full rounded overflow-hidden bg-white relative">
+                                    <button class="absolute top-0 right-0 p-4">
+                                        &#8942
+                                    </button>
+                                        <div class="px-6 py-4">
+                                            <h3 class="font-bold text-xl mb-2">{{ task.title }}</h3>
+                                            <p class="text-gray-700 text-base">{{task.description}}</p>
+                                        </div>
+                                            <div class="px-6 pt-4 pb-2 flex items-center justify-between">
+                                                <div class="flex items-center">
+                                                    <span class="text-gray-700 text-sm">0/3</span>
+                                                </div>
+                                                <div class="flex -space-x-2">
+                                                    <img class="w-8 h-8 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 1">
+                                                    <img class="w-8 h-8 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 2">
+                                                    <img class="w-8 h-8 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 3">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {%endfor%}
+                    {% else %}
+                            <div class="max-w-sm rounded overflow-hidden bg-white relative">
+                                <button class="absolute top-0 right-0 p-4">
+                                    &#8942
+                                </button>
+                                <div class="px-6 py-4">
+                                    <h3 class="font-bold text-xl mb-2">No Task Available</h3>
+                                    <p class="text-gray-700 text-base">Tasks are not currently available in this card. Add tasks or check again later.</p>
+                                </div>
+                                <div class="px-6 pt-4 pb-2 flex items-center justify-between">
+                                    <div class="flex items-center">
+                                        <span class="text-gray-700 text-sm">0/3</span>
+                                    </div>
+                                    <div class="flex -space-x-2">
+                                        <img class="w-8 h-8 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 1">
+                                        <img class="w-8 h-8 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 2">
+                                        <img class="w-8 h-8 rounded-full border-2 border-white" src="https://via.placeholder.com/150" alt="User 3">
+                                    </div>                           
+                                </div>
+                            </div>
+                    {% endif %}
+                            
+                </div> {% endcomment %}
+                
+            </div>
+        </main>
+        
+    </div>
+{% endblock content %}
+
